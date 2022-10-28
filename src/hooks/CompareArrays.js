@@ -1,0 +1,1 @@
+//This function compares the initial CreatedArray to the array the player created when pressing the buttons 
