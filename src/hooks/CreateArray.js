@@ -1,4 +1,4 @@
-
+//This function creates the initial array of numbers from 1-4. 
 function createArray(lenght){
 
     let array = [];
