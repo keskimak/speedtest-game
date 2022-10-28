@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from'@react-navigation/bottom-tabs';
 import HomeScreen from './src/screens/HomeScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import GameScreen from './src/screens/GameScreen';
 
 
 export default function App() {
@@ -15,8 +16,9 @@ export default function App() {
 
 <NavigationContainer>
     <Tab.Navigator>
-
-      <Tab.Screen name="Login" component={LoginScreen} />
+      <Tab.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
+      <Tab.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
+      <Tab.Screen name="GameScreen" component={GameScreen} options={{ headerShown: false }}/>
     </Tab.Navigator>
   </NavigationContainer>
 

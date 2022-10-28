@@ -1,25 +1,24 @@
 import { View, Text, StyleSheet } from "react-native";
 import { KeyboardAvoidingView, Input, Button } from "react-native";
 import React from "react";
-
-import { initializeApp } from 'firebase/app';
-
 import { GoogleAuthProvider, signInWithRedirect, getAuth, getRedirectResult, signInWithPopup } from "firebase/auth";
 import { Alert } from "react-native";
-import { firebaseConfig } from "../../firebase";
+import { auth, provider } from "../../firebase";
+import HomeScreen from "./HomeScreen";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import GameScreen from "./GameScreen";
 
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
+
+    const Tab = createBottomTabNavigator();
 
 
+//When logged in, the user is then taken to Homescreen. There the user can choose the function they want: play the game, see the leaderboard etc
 
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+// HandleSignIn does not work yet. 
 
-
-    const provider = new GoogleAuthProvider();
-
+/*
     const handleSignIn =()=> {
         signInWithRedirect(auth, provider)
         .then((result) => {
@@ -43,19 +42,16 @@ export default function LoginScreen() {
     }
 
 
-
-
+*/
+//If logged in, then conditionally render Homescreen here. Now it shows the homescreen automatically
     return (
-        <KeyboardAvoidingView
-            style={styles.container}
-            behavior='padding'
-        >
-
-            <View style={styles.buttonContainer}>
-                <Button title="login" style={styles.button} onPress={handleSignIn} />
-
-            </View>
-        </KeyboardAvoidingView>
+     <Button
+      title="Go somewhere"
+      onPress={() => {
+        // Navigate using the `navigation` prop that you received
+        navigation.navigate('HomeScreen');
+      }}
+    />
     );
 };
 
