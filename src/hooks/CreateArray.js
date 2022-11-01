@@ -7,7 +7,6 @@ function createArray(lenght){
         
     }
     
-    console.log(array);
     return array;
 }
 

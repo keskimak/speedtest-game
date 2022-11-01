@@ -1,43 +1,45 @@
-import { StyleSheet } from "react-native";
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Button } from "react-native";
 import { createArray } from "../hooks/CreateArray";
-import { createPlayerArray } from "../hooks/CreatePlayerArray";
 import React, { useEffect } from "react";
-import { Alert } from "react-native";
-import { CompareArrays } from "../hooks/CompareArrays";
+
+
 
 
 
 export default function GameScreen({ navigation }) {
 
     const [buttonNumber, setButtonNumber] = React.useState(null);
-
-
     //Counter value tells the result at the end of the game. Best results are saved to the leaderboard.
     //Counter does not work at the moment, but it is okay - the lenght of the PlayersArrray can be used instead to measure the results
     const [counter, setCounter] = React.useState(0);
+    let array = createArray(500);
 
     //This can be later modified so that the button is not visible while playing
     const startGame = () => {
-        setButtonNumber(null);
-        createArray(300)
+        setButtonNumber(0);
+        array = createArray(500);
+        console.log(array);
+        setCounter(0);
 
     }
 
     const buttonPressed = (event, number) => {
-        event.preventDefault();
+              
         setButtonNumber(number);
-
+   
+        console.log(`pressed number: ${number} array number: ${array[counter]} button number set: ${buttonNumber}`);
+ 
+        setCounter(counter+1);
+    
     }
 
-    const useEffect = (() => {
-    //Player array creation is actually not needed -the comparison can be done right away with the initial array. 
-        CompareArrays() //do this later
+    const handlePress = event => {
+        
+    }
 
+ 
 
-    }, buttonNumber)
-
-
+ 
     return (
 
         <View>
@@ -47,10 +49,10 @@ export default function GameScreen({ navigation }) {
 
             <View style={styles.gameButtonsContainer}>
 
-                <TouchableOpacity style={styles.button1} onPress={event => buttonPressed(event, 1)}><Text>1</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button2} onPress={event => buttonPressed(event, 2)}><Text>2</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button3} onPress={event => buttonPressed(event, 3)}><Text>3</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button4} onPress={event => buttonPressed(event, 4)}><Text>4</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button1} onPress={handlePress}><Text>1</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button2} onPress={event => buttonPressed(event,2)}><Text>2</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button3} onPress={event => buttonPressed(event,3)}><Text>3</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button4} onPress={event => buttonPressed(event,4)}><Text>4</Text></TouchableOpacity>
 
             </View>
             <View></View>
