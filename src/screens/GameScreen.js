@@ -17,7 +17,8 @@ export default function GameScreen({ navigation }) {
 
     //This can be later modified so that the button is not visible while playing
     const startGame = (e) => {
-      
+        const array = createArray(500);
+        setGeneratedArray([...array]);
         setCounter(0);
         setGameOn(true);
         setIshighLighted(true);
@@ -33,19 +34,11 @@ export default function GameScreen({ navigation }) {
 
     }
 
-    useEffect(() => {
-        const array = createArray(500);
-        setGeneratedArray([...array]);
-        console.log(generatedArray+ "use effected");
 
-
-    }, [gameOver]);
 
     const buttonPressed = (event, number) => {
         event.preventDefault();
         let pushedNumber = number;
-        console.log(generatedArray);
-
         if (pushedNumber === generatedArray[counter]) {
             console.log(`match: counter: ${counter} array: ${generatedArray[counter]} pushednumber: ${pushedNumber}`);
             setCounter(counter + 1);
