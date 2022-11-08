@@ -5,7 +5,7 @@ function createArray(lenght){
         let number = Math.floor(Math.random()*(5-1)+1);
 //Prevent 2 same numbers in a row
         if(number === array[index-1]){
-            if(number<4) {
+            if(number<3) {
                 number++;
             }
             else {

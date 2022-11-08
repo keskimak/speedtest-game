@@ -1,21 +1,28 @@
-import { KeyboardAvoidingView, Text, View } from "react-native";
+import { KeyboardAvoidingView, Text, View, Alert } from "react-native";
 import React from "react";
 import { Button, Input } from "react-native-elements";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { styles } from "../styles/stylesheet";
+import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+
 
 
 export default function LoginScreen({ navigation }) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const Tab = createBottomTabNavigator();
+   
+
     const handleLogin = () => {
 
-        signInWithEmailAndPassword(auth, password)
+        signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
                 Alert.alert(user.email)
+                navigation.navigate('HomeScreen');
+
                 // ...
             })
             .catch((error) => {
@@ -52,12 +59,12 @@ export default function LoginScreen({ navigation }) {
                 <Input
                     placeholder='Email'
                     value={email}
-                    onChangeText={email => setEmail(email)}
+                    onChangeText={email => setEmail(email.trim())}
                 />
                 <Input
                     placeholder='Password'
                     value={password}
-                    onChangeText={password => setPassword(password)}
+                    onChangeText={password => setPassword(password.trim())}
                     secureTextEntry
                 />
 

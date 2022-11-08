@@ -11,41 +11,44 @@ export default function GameScreen({ navigation }) {
     //Counter does not work at the moment, but it is okay - the lenght of the PlayersArrray can be used instead to measure the results
     const [counter, setCounter] = React.useState(0);
     const [generatedArray, setGeneratedArray] = useState([]);
-    const [gameOn, setGameOn] = useState(false);
-    const [gameOver, setGamever] = useState(false);
+    const [gameGoingOn, setGameGoingOn] = useState(false);
     const [isHighLighted, setIshighLighted] = useState(true);
 
+    
+
+    useEffect(() => {
+        let array = createArray(500);
+    setGeneratedArray(array);
+       
+    }, [gameGoingOn]);
+
     //This can be later modified so that the button is not visible while playing
-    const startGame = (e) => {
-        const array = createArray(500);
-        setGeneratedArray([...array]);
+    const startGame = () => {
+   
         setCounter(0);
-        setGameOn(true);
+        setGameGoingOn(true);
         setIshighLighted(true);
         console.log("game started");
         console.log(generatedArray);
     }
 
-    const highLight = (counter) => {
-
-        //Render the styling of the button to highlighted version
-
-        let buttonToBeHighlighed = generatedArray[counter];
-
-    }
-
-
+   
 
     const buttonPressed = (event, number) => {
         event.preventDefault();
         let pushedNumber = number;
         if (pushedNumber === generatedArray[counter]) {
             console.log(`match: counter: ${counter} array: ${generatedArray[counter]} pushednumber: ${pushedNumber}`);
+
             setCounter(counter + 1);
         }
         else {
             console.log(`not match: counter: ${counter}  array: ${generatedArray[counter]} pushednumber: ${pushedNumber}`);
-            setGameOn(false);
+    
+            setGameGoingOn(false);
+           
+          
+         
         }
     }
 
