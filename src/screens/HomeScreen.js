@@ -1,14 +1,17 @@
-import { View, Text, Button } from "react-native";
+import { View, Text} from "react-native";
+import { Button } from "react-native-elements";
 
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen({ route, navigation }) {
+    const { user } = route.params;  
 
     return (
 
         <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-                <Text> This is the screen Homescreen</Text>
-            <Text>Play the game</Text><Button title="GameScreen" onPress={() => navigation.navigate('GameScreen')} />
+                <Text> Welcome, {user.email}</Text>
+                <Button title="PLAY" onPress={() => navigation.navigate('GameScreen')} />
+                <Button title="SETTINGS" onPress={() => navigation.navigate('GameScreen')} />
         </View>
     );
 };

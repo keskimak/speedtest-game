@@ -1,27 +1,30 @@
 import { KeyboardAvoidingView, Text, View, Alert } from "react-native";
-import React from "react";
+import { Modal } from "react-native";
+import React, { useState } from "react";
 import { Button, Input } from "react-native-elements";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { styles } from "../styles/stylesheet";
 import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
+import { Dialog } from "react-native-elements";
+import UserDialog from "../components/DialogComponent";
 
 
 
 export default function LoginScreen({ navigation }) {
-    const [email, setEmail] = React.useState('');
-    const [password, setPassword] = React.useState('');
-    const Tab = createBottomTabNavigator();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    //not in use atm    const [username, setUsername] = useState('');
+
    
 
-    const handleLogin = () => {
+    const handleLogin= (email, password) => {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-                Alert.alert(user.email)
-                navigation.navigate('HomeScreen');
+                navigation.navigate('HomeScreen', { user: user });
 
                 // ...
             })
@@ -32,14 +35,14 @@ export default function LoginScreen({ navigation }) {
                 // ...
             });
     }
-
+ 
     const handleSignUp = () => {
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                Alert.alert(user.email)
+             
                 // ...
             })
             .catch((error) => {
@@ -71,7 +74,7 @@ export default function LoginScreen({ navigation }) {
 
             </View>
             <View style={styles.loginButtonContainer}>
-                <Button title="login" style={styles.button} onPress={handleLogin} />
+                <Button title="login" style={styles.button} onPress={handleLogin()} />
                 <Button title="register" style={styles.button} onPress={handleSignUp} />
 
 
