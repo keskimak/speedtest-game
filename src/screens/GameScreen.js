@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { styles } from "../styles/stylesheet";
 import ButtonComponent from "../components/ButtonComponent";
 
-export default function GameScreen({ navigation }) {
+export default function GameScreen({ route, navigation }) {
     //Buttonnumber not used at the moment
     const [buttonNumber, setButtonNumber] = React.useState(null);
     //Counter value tells the result at the end of the game. Best results are saved to the leaderboard.

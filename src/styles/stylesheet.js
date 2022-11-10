@@ -46,13 +46,14 @@ const styles = StyleSheet.create({
     },
 
     loginInputContainer: {
-        flex: 1,
-        alignContent: 'center',
-        justifyContent: 'center',
+        marginTop:200,
+        flex: 0,
+        alignContent: 'flex-end',
+        justifyContent: 'flex-end',
         width: 350
     },
     loginButtonContainer: {
-        flex: 1,
+        flex: 0,
         alignContent: 'center',
         justifyContent: 'center',
         width: 250

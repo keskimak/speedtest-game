@@ -1,7 +1,8 @@
 import { KeyboardAvoidingView, Text, View, Alert } from "react-native";
 import { Modal } from "react-native";
 import React, { useState } from "react";
-import { Button, Input } from "react-native-elements";
+import { Button } from '@rneui/base';
+import {  Input } from "react-native-elements";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { styles } from "../styles/stylesheet";
 import { auth } from "../../firebase";
