@@ -5,54 +5,51 @@ import { styles } from "../styles/stylesheet";
 import ButtonComponent from "../components/ButtonComponent";
 
 export default function GameScreen({ navigation }) {
-
+    //Buttonnumber not used at the moment
     const [buttonNumber, setButtonNumber] = React.useState(null);
     //Counter value tells the result at the end of the game. Best results are saved to the leaderboard.
     //Counter does not work at the moment, but it is okay - the lenght of the PlayersArrray can be used instead to measure the results
     const [counter, setCounter] = React.useState(0);
     const [generatedArray, setGeneratedArray] = useState([]);
-    const [gameOn, setGameOn] = useState(false);
-    const [gameOver, setGamever] = useState(false);
+    const [gameGoingOn, setGameGoingOn] = useState(false);
     const [isHighLighted, setIshighLighted] = useState(true);
 
+    
+
+    useEffect(() => {
+        let array = createArray(500);
+    setGeneratedArray(array);
+       
+    }, [gameGoingOn]);
+
     //This can be later modified so that the button is not visible while playing
-    const startGame = (e) => {
-      
+    const startGame = () => {
+   
         setCounter(0);
-        setGameOn(true);
+        setGameGoingOn(true);
         setIshighLighted(true);
         console.log("game started");
         console.log(generatedArray);
+        //Then start highlightArray to start the buttons to flash highLightArray(generatedArray)
     }
 
-    const highLight = (counter) => {
-
-        //Render the styling of the button to highlighted version
-
-        let buttonToBeHighlighed = generatedArray[counter];
-
-    }
-
-    useEffect(() => {
-        const array = createArray(500);
-        setGeneratedArray([...array]);
-        console.log(generatedArray+ "use effected");
-
-
-    }, [gameOver]);
+   
 
     const buttonPressed = (event, number) => {
         event.preventDefault();
         let pushedNumber = number;
-        console.log(generatedArray);
-
         if (pushedNumber === generatedArray[counter]) {
             console.log(`match: counter: ${counter} array: ${generatedArray[counter]} pushednumber: ${pushedNumber}`);
+
             setCounter(counter + 1);
         }
         else {
             console.log(`not match: counter: ${counter}  array: ${generatedArray[counter]} pushednumber: ${pushedNumber}`);
-            setGameOn(false);
+    
+            setGameGoingOn(false);
+           
+          
+         
         }
     }
 

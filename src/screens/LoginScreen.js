@@ -1,86 +1,95 @@
-import { View, Text, StyleSheet } from "react-native";
-import { KeyboardAvoidingView, Input, Button } from "react-native";
-import React from "react";
-import { GoogleAuthProvider, signInWithRedirect, getAuth, getRedirectResult, signInWithPopup } from "firebase/auth";
-import { Alert } from "react-native";
-import { auth, provider } from "../../firebase";
-import HomeScreen from "./HomeScreen";
+import { KeyboardAvoidingView, Text, View, Alert } from "react-native";
+import { Modal } from "react-native";
+import React, { useState } from "react";
+import { Button, Input } from "react-native-elements";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import GameScreen from "./GameScreen";
+import { styles } from "../styles/stylesheet";
+import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
+import { Dialog } from "react-native-elements";
+import SaveUser from "../utils/saveUser";
+
+
 
 
 export default function LoginScreen({ navigation }) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    //not in use atm    const [username, setUsername] = useState('');
 
-    const Tab = createBottomTabNavigator();
+   
 
+    const handleLogin= () => {
 
-//When logged in, the user is then taken to Homescreen. There the user can choose the function they want: play the game, see the leaderboard etc
+        signInWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                navigation.navigate('HomeScreen', { user: user });
 
-// HandleSignIn does not work yet. 
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Alert.alert(errorCode, errorMessage)
+                // ...
+            });
+    }
+ 
+    const handleSignUp = () => {
 
-/*
-    const handleSignIn =()=> {
-        signInWithRedirect(auth, provider)
-        .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
-            // The signed-in user info.
-            const user = result.user;
-            // ...
-          }).catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
-            // ...
-          }
-        )
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                SaveUser(user);
+             
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                Alert.alert(errorCode, errorMessage)
+                // ..
+            });
+        setEmail('');
+        setPassword('');
     }
 
 
-*/
-//If logged in, then conditionally render Homescreen here. Now it shows the homescreen automatically
     return (
-     <Button
-      title="Go somewhere"
-      onPress={() => {
-        // Navigate using the `navigation` prop that you received
-        navigation.navigate('HomeScreen');
-      }}
-    />
+        <View style={styles.loginPageContainer}>
+            <View style={styles.loginInputContainer}>
+                <Input
+                    placeholder='Email'
+                    value={email}
+                    onChangeText={email => setEmail(email.trim())}
+                />
+                <Input
+                    placeholder='Password'
+                    value={password}
+                    onChangeText={password => setPassword(password.trim())}
+                    secureTextEntry
+                />
+
+
+            </View>
+            <View style={styles.loginButtonContainer}>
+                <Button title="login" style={styles.button} onPress={handleLogin} />
+                <Button title="register" style={styles.button} onPress={handleSignUp} />
+
+
+            </View>
+            <Button
+                title="Just play the game"
+                onPress={() => {
+                    // Navigate using the `navigation` prop that you received
+                    navigation.navigate('GameScreen');
+                }}
+            />
+        </View>
+
     );
-};
+}
 
-
-const styles = StyleSheet.create({
-    container: {
-
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-
-    inputContainer: {
-        flex: 1,
-        alignContent: 'center',
-        justifyContent: 'center',
-        width: 350
-    },
-    buttonContainer: {
-        flex: 1,
-        alignContent: 'center',
-        justifyContent: 'center',
-        width: 250
-
-    },
-    button: {
-        padding: 15,
-        margin: 12
-
-    }
-
-})
