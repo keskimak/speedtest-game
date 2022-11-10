@@ -3,7 +3,10 @@ import { useState, Text } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { styles } from "../styles/stylesheet";
 
-const ButtonComponent = ({isHighLighted}) => {
+const ButtonComponents = ({isHighLighted}) => {
+
+
+  //This might be the best place to define the outlook of the buttons and also the highlight effect, since it probably will take up some space
     
 return (
  <View>
@@ -12,4 +15,4 @@ return (
 );
 };
 
-export default ButtonComponent;
+export default ButtonComponents;

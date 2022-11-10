@@ -5,7 +5,7 @@ import { styles } from "../styles/stylesheet";
 import ButtonComponent from "../components/ButtonComponent";
 
 export default function GameScreen({ navigation }) {
-
+    //Buttonnumber not used at the moment
     const [buttonNumber, setButtonNumber] = React.useState(null);
     //Counter value tells the result at the end of the game. Best results are saved to the leaderboard.
     //Counter does not work at the moment, but it is okay - the lenght of the PlayersArrray can be used instead to measure the results
@@ -30,6 +30,7 @@ export default function GameScreen({ navigation }) {
         setIshighLighted(true);
         console.log("game started");
         console.log(generatedArray);
+        //Then start highlightArray to start the buttons to flash highLightArray(generatedArray)
     }
 
    

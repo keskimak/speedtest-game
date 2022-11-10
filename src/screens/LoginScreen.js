@@ -7,7 +7,8 @@ import { styles } from "../styles/stylesheet";
 import { auth } from "../../firebase";
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
 import { Dialog } from "react-native-elements";
-import UserDialog from "../components/DialogComponent";
+import SaveUser from "../utils/saveUser";
+
 
 
 
@@ -18,7 +19,7 @@ export default function LoginScreen({ navigation }) {
 
    
 
-    const handleLogin= (email, password) => {
+    const handleLogin= () => {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
@@ -42,6 +43,7 @@ export default function LoginScreen({ navigation }) {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
+                SaveUser(user);
              
                 // ...
             })
@@ -74,16 +76,16 @@ export default function LoginScreen({ navigation }) {
 
             </View>
             <View style={styles.loginButtonContainer}>
-                <Button title="login" style={styles.button} onPress={handleLogin()} />
+                <Button title="login" style={styles.button} onPress={handleLogin} />
                 <Button title="register" style={styles.button} onPress={handleSignUp} />
 
 
             </View>
             <Button
-                title="Go somewhere"
+                title="Just play the game"
                 onPress={() => {
                     // Navigate using the `navigation` prop that you received
-                    navigation.navigate('HomeScreen');
+                    navigation.navigate('GameScreen');
                 }}
             />
         </View>
