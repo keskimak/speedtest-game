@@ -7,19 +7,11 @@ import { Alert } from "react-native";
 export default function saveNickname(uid, nickname){
     //not working atm
 
-    try {
+
         update(ref(database, "users/" + uid), {
      
             nickname: nickname,
         
           });
         
-    } catch (error) {
-        Alert.alert(error)
-        
-    }
-  
-
-
-
 }

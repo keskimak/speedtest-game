@@ -1,7 +1,13 @@
-import { StyleSheet } from "react-native"
+import { StyleSheet, Dimensions } from "react-native"
+
+
 
 
 const styles = StyleSheet.create({
+
+
+
+    //Game screen
     gameButtonsContainer: {
         flex: 0,
         alignItems: 'center',
@@ -9,31 +15,87 @@ const styles = StyleSheet.create({
         alignContent: 'center',
 
     },
+
+    //Buttons
     button1: {
+        width: Dimensions.get('window').width*0.4,
+        height: Dimensions.get('window').width*0.4,
         alignItems: "center",
         backgroundColor: "red",
-        padding: 50
+        padding: 10,
+        borderRadius: 100,
 
     },
     button2: {
+        width: Dimensions.get('window').width*0.4,
+        height: Dimensions.get('window').width*0.4,
         alignItems: "center",
         backgroundColor: 'yellow',
-        padding: 50
+        padding: 10,
+        borderRadius: 100,
 
     },
     button3: {
+        width: Dimensions.get('window').width*0.4,
+        height: Dimensions.get('window').width*0.4,
         alignItems: "center",
         backgroundColor: "green",
-        padding: 50
+        padding: 10,
+        borderRadius: 100,
 
 
     },
     button4: {
+        width: Dimensions.get('window').width*0.4,
+        height: Dimensions.get('window').width*0.4,
         alignItems: "center",
         backgroundColor: "blue",
-        padding: 50
+        padding: 10,
+        borderRadius: 100,
 
     },
+
+    //Highlighted buttons
+
+    lightButton1: {
+        width: Dimensions.get('window').width*0.4,
+        height: Dimensions.get('window').width*0.4,
+        alignItems: "center",
+        backgroundColor: "#ff6666",
+        padding: 10,
+        borderRadius: 100,
+
+    },
+    lightButton2: {
+        width: Dimensions.get('window').width*0.4,
+        height: Dimensions.get('window').width*0.4,
+        alignItems: "center",
+        backgroundColor: "#ffff80",
+        padding: 10,
+        borderRadius: 100,
+
+    },
+    lightButton3: {
+        width: Dimensions.get('window').width*0.4,
+        height: Dimensions.get('window').width*0.4,
+        alignItems: "center",
+        backgroundColor: "#66ff66",
+        padding: 10,
+        borderRadius: 100,
+
+    },
+    lightButton4: {
+        width: Dimensions.get('window').width*0.4,
+        height: Dimensions.get('window').width*0.4,
+        alignItems: "center",
+        backgroundColor: "#9999ff",
+        padding: 10,
+        borderRadius: 100,
+
+    },
+
+ 
+    //
     highlightedButton: {
         opacity: 5
 
@@ -59,6 +121,12 @@ const styles = StyleSheet.create({
         width: 250
 
     },
+
+    //Delete when highlights work
+    wrapperCustom: {
+        borderRadius: 8,
+        padding: 6
+      },
 
 
 })
