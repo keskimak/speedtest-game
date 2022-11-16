@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width*0.4,
         height: Dimensions.get('window').width*0.4,
         alignItems: "center",
-        backgroundColor: "#ff6666",
+        backgroundColor: "black",
         padding: 10,
         borderRadius: 100,
 
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width*0.4,
         height: Dimensions.get('window').width*0.4,
         alignItems: "center",
-        backgroundColor: "#ffff80",
+        backgroundColor: "black",
         padding: 10,
         borderRadius: 100,
 
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width*0.4,
         height: Dimensions.get('window').width*0.4,
         alignItems: "center",
-        backgroundColor: "#66ff66",
+        backgroundColor: "black",
         padding: 10,
         borderRadius: 100,
 
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width*0.4,
         height: Dimensions.get('window').width*0.4,
         alignItems: "center",
-        backgroundColor: "#9999ff",
+        backgroundColor: "black",
         padding: 10,
         borderRadius: 100,
 

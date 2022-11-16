@@ -1,26 +1,23 @@
 
 
-
 export default function highLightArray(generatedArray) {
 
-    let timeout = 1000; // initial gap between highlights
-    let newArray=[];
+    let interval = 5000; // initial gap between highlights
+   
+    let index=0;
     console.log(generatedArray);
 
-    for (let index = 0; index < generatedArray.length; index++) {
+   function printArray(){
+    
 
-        function printToConsole() {
-            newArray.push(generatedArray[index]);
+    if(index < generatedArray.length) {
+        console.log(generatedArray[index]);
 
+        index++;
 
-        }
-       
-
-        setTimeout(printToConsole, timeout);
-
-
-
-        
     }
-    console.log(newArray);
+   }
+
+   setInterval(printArray, interval);
+  
 }
