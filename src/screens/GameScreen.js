@@ -61,7 +61,7 @@ export default function GameScreen({ route, navigation }) {
                     isOn: true,
                     button: generatedArray[index]
                 });
-                index++;
+                index++;xp
             }  setInterval(highlighMyButtons, speed);
 
         }
