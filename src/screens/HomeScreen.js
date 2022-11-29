@@ -14,8 +14,9 @@ export default function HomeScreen({ route, navigation }) {
         <View
             style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
                 <Text> Welcome, {user.email}</Text>
-                <Button title="PLAY" onPress={() => navigation.navigate('GameScreen')} />
-                <Button title="SET ALIAS" onPress={() => navigation.navigate('SettingScreen',  { user: user })} />
+                <Button title="PLAY" onPress={() => navigation.navigate('GameScreen', { user: user })} />
+                <Button title="SETTINGS" onPress={() => navigation.navigate('Settings',  { user: user })} />
+                <Button title="Leaderboard" onPress={() => navigation.navigate('Leaderboard')} />
         </View>
     );
 };

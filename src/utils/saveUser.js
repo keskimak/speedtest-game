@@ -1,5 +1,5 @@
 import { database } from "../../firebase";
-import { getDatabase, set, ref } from "firebase/database";
+import { set, ref } from "firebase/database";
 
 
 export default function saveUser(user) {
@@ -10,4 +10,6 @@ export default function saveUser(user) {
       username: '',
       bestresult: null,
     });
+
+  
   }

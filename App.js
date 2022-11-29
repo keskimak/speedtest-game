@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { NavigationContainer, navigation } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
@@ -8,24 +9,27 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import GameScreen from './src/screens/GameScreen';
 import SettingScreen from './src/screens/SettingScreen';
 import { Button } from 'react-native-elements';
+import LeaderboardScreen from './src/screens/LeaderboardScreen';
 
-
+import { createStackNavigator } from '@react-navigation/stack';
 export default function App() {
 
 
   //At some point define backNavigation (see props)
-  const Tab = createBottomTabNavigator();
+  const Stack = createStackNavigator();
 
  
   return (
 
 <NavigationContainer>
-    <Tab.Navigator>
-      <Tab.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false, tabBarShowLabel:false}} />
-      <Tab.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }}/>
-      <Tab.Screen name="GameScreen" component={GameScreen} options={{ headerShown: false }}/>
-      <Tab.Screen name="SettingScreen" component={SettingScreen} options={{ headerShown: false }}/>
-    </Tab.Navigator>
+<Stack.Navigator>
+
+      <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false}} />
+      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false}} />
+      <Stack.Screen name="GameScreen" component={GameScreen} options={{ headerShown: false}} />
+      <Stack.Screen name="Settings" component={SettingScreen}/>
+      <Stack.Screen name="Leaderboard" component={LeaderboardScreen}/>
+      </Stack.Navigator>
   </NavigationContainer>
 
   );

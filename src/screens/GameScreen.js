@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Alert, Button, Pressable } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert, Button, Pressable, SafeAreaView } from "react-native";
 import { createArray } from "../hooks/CreateArray";
 import React, { useEffect, useState } from "react";
 import { styles } from "../styles/stylesheet";
@@ -6,16 +6,23 @@ import ButtonComponent from "../components/ButtonComponent";
 import { FAB } from '@rneui/themed';
 import highLightArray from "../hooks/HighLightArray";
 import { useRef } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import saveResult from "../utils/SaveResult";
+import { auth } from "../../firebase";
+import { push, ref } from "firebase/database";
 
 
 export default function GameScreen({ route, navigation }) {
+    const { user } = route.params;  
+
+   
     //Buttonnumber not used at the moment
     const [buttonNumber, setButtonNumber] = React.useState(null);
     //Counter value tells the result at the end of the game. Best results are saved to the leaderboard.
     //Counter does not work at the moment, but it is okay - the lenght of the PlayersArrray can be used instead to measure the results
     const [counter, setCounter] = React.useState(0);
     const [generatedArray, setGeneratedArray] = useState([]);
-    const [gameGoingOn, setGameGoingOn] = useState(true);
+    const [gameGoingOn, setGameGoingOn] = useState(false);
     const [highlight, setHighlight] = useState({ 'isOn': false, 'button': null });
     let index = 0;
 
@@ -39,37 +46,28 @@ export default function GameScreen({ route, navigation }) {
 
         handeHighLight(generatedArray, counter);
     }
+
+
+
     const handeHighLight = (generatedArray) => {
         let index = 0;
-        function getSpeedFromCounter(index) {
-            if (counter < 10) {
-                return 100;
-            }
 
-            if (counter > 10) {
-                return 10;
-            } 
-        }
-
-        
 
         function highlighMyButtons() {
-            var speed = getSpeedFromCounter(index);
 
             if (gameGoingOn) {
                 setHighlight({
                     isOn: true,
                     button: generatedArray[index]
                 });
-                index++;xp
-            }  setInterval(highlighMyButtons, speed);
+                index++;
+            }
+            else {
+                return;
+            };
 
         }
-      
-
-
-
-
+        setInterval(highlighMyButtons, 1000);
     }
 
     const buttonPressed = (event, number) => {
@@ -83,15 +81,16 @@ export default function GameScreen({ route, navigation }) {
             console.log(`not match: counter: ${counter}  array: ${generatedArray[counter]} pushednumber: ${pushedNumber}`);
             Alert.alert("Game over! Your result: " + counter);
             setGameGoingOn(false);
+            saveResult(user, counter);
 
         }
     }
 
     return (
 
-        <View>
+        <SafeAreaView>
             <View style={{ flex: 0, alignItems: 'center', justifyContent: 'center', marginTop: 50 }}>
-                <Button title="New game" onPress={startGame} />
+            {!gameGoingOn ? <Button title="New game" onPress={startGame} /> : <></> }    
                 <Text>Counter: {counter} Present value: {buttonNumber}</Text>
             </View>
             <View style={styles.gameButtonsContainer}>
@@ -112,27 +111,7 @@ export default function GameScreen({ route, navigation }) {
             <View>
 
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
-
-// Button 4        
-
-
-/*
-
-       <Pressable
-                    onPress={event => buttonPressed(event, 4)}
-                    style={({ pressed }) => [
-                        {
-                          backgroundColor: pressed
-                            ? 'rgb(210, 230, 255)'
-                            : 'white'
-                        },
-                        styles.wrapperCustom
-                      ]}>
-                </Pressable>
-
-
-*/
