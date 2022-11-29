@@ -13,9 +13,9 @@ import { push, ref } from "firebase/database";
 
 
 export default function GameScreen({ route, navigation }) {
-    const { user } = route.params;  
+    const { user } = route.params;
 
-   
+
     //Buttonnumber not used at the moment
     const [buttonNumber, setButtonNumber] = React.useState(null);
     //Counter value tells the result at the end of the game. Best results are saved to the leaderboard.
@@ -25,13 +25,9 @@ export default function GameScreen({ route, navigation }) {
     const [gameGoingOn, setGameGoingOn] = useState(false);
     const [highlight, setHighlight] = useState({ 'isOn': false, 'button': null });
     let index = 0;
+    let array = [];
+    let interval = 1000;
 
-    useEffect(() => {
-        let array = createArray(500);
-        setGeneratedArray(array);
-        console.log(generatedArray);
-
-    }, [gameGoingOn]);
 
     //This can be later modified so that the button is not visible while playing
     const startGame = () => {
@@ -41,47 +37,83 @@ export default function GameScreen({ route, navigation }) {
         setCounter(0);
         setGameGoingOn(true);
         console.log("game started");
-        console.log(generatedArray);
+        array = createArray(500);
+        console.log(array);
         //Then start highlightArray to start the buttons to flash highLightArray(generatedArray)
+        handleArray();
 
-        handeHighLight(generatedArray, counter);
     }
 
+    const handleArray = () => {
+        
+        console.log(array);
 
+        if (index > 20) {
+            interval = 800;
 
-    const handeHighLight = (generatedArray) => {
-        let index = 0;
+        } else {
+            interval = 500;
 
+        }
 
-        function highlighMyButtons() {
+        setInterval(() => {
 
             if (gameGoingOn) {
                 setHighlight({
                     isOn: true,
-                    button: generatedArray[index]
+                    button: array[index]
                 });
                 index++;
             }
-            else {
-                return;
-            };
+            else (
+                clearInterval
+            )
 
+
+
+        }, interval);
+
+
+    };
+    /*
+     handeHighLight();
+        function handeHighLight()  {
+            let index = 0;
+    
+    
+            function highlighMyButtons() {
+    
+                if (gameGoingOn) {
+                    setHighlight({
+                        isOn: true,
+                        button: generatedArray[index]
+                    });
+                    index++;
+                }
+                else {
+                    return;
+                };
+    
+            }
+            setInterval(highlighMyButtons, 1000);
         }
-        setInterval(highlighMyButtons, 1000);
-    }
-
+    */
     const buttonPressed = (event, number) => {
         event.preventDefault();
         let pushedNumber = number;
-        if (pushedNumber === generatedArray[counter]) {
-            console.log(`match: counter: ${counter} array: ${generatedArray[counter]} pushednumber: ${pushedNumber}`);
+        if (pushedNumber === array[counter]) {
+            console.log(`match: counter: ${counter} array: ${array[counter]} pushednumber: ${pushedNumber}`);
             setCounter(counter + 1);
         }
         else {
-            console.log(`not match: counter: ${counter}  array: ${generatedArray[counter]} pushednumber: ${pushedNumber}`);
+            console.log(`not match: counter: ${counter}  array: ${array[counter]} pushednumber: ${pushedNumber}`);
             Alert.alert("Game over! Your result: " + counter);
             setGameGoingOn(false);
-            saveResult(user, counter);
+
+            //result saving not working saveResult(user, counter);
+
+
+
 
         }
     }
@@ -90,8 +122,8 @@ export default function GameScreen({ route, navigation }) {
 
         <SafeAreaView>
             <View style={{ flex: 0, alignItems: 'center', justifyContent: 'center', marginTop: 50 }}>
-            {!gameGoingOn ? <Button title="New game" onPress={startGame} /> : <></> }    
-                <Text>Counter: {counter} Present value: {buttonNumber}</Text>
+                {!gameGoingOn ? <Button title="New game" onPress={startGame} /> : <></>}
+                <Text>Counter: {counter} Present value: {array[counter]}</Text>
             </View>
             <View style={styles.gameButtonsContainer}>
                 {highlight.isOn && highlight.button === 1 ? <TouchableOpacity activeOpacity={1.0} style={styles.lightButton1} onPress={event => buttonPressed(event, 1)}><Text>3</Text></TouchableOpacity> :

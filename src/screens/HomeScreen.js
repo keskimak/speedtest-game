@@ -16,7 +16,7 @@ export default function HomeScreen({ route, navigation }) {
                 <Text> Welcome, {user.email}</Text>
                 <Button title="PLAY" onPress={() => navigation.navigate('GameScreen', { user: user })} />
                 <Button title="SETTINGS" onPress={() => navigation.navigate('Settings',  { user: user })} />
-                <Button title="Leaderboard" onPress={() => navigation.navigate('Leaderboard')} />
+                <Button title="Leaderboard" onPress={() => navigation.navigate('Leaderboard', { user: user })} />
         </View>
     );
 };
