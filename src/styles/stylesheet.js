@@ -18,8 +18,8 @@ const styles = StyleSheet.create({
 
     //Buttons
     button1: {
-        width: Dimensions.get('window').width*0.4,
-        height: Dimensions.get('window').width*0.4,
+        width: Dimensions.get('window').width*0.45,
+        height: Dimensions.get('window').width*0.45,
         alignItems: "center",
         backgroundColor: "red",
         padding: 10,
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
 
     },
     button2: {
-        width: Dimensions.get('window').width*0.4,
-        height: Dimensions.get('window').width*0.4,
+        width: Dimensions.get('window').width*0.45,
+        height: Dimensions.get('window').width*0.45,
         alignItems: "center",
         backgroundColor: 'yellow',
         padding: 10,
@@ -36,8 +36,8 @@ const styles = StyleSheet.create({
 
     },
     button3: {
-        width: Dimensions.get('window').width*0.4,
-        height: Dimensions.get('window').width*0.4,
+        width: Dimensions.get('window').width*0.45,
+        height: Dimensions.get('window').width*0.45,
         alignItems: "center",
         backgroundColor: "green",
         padding: 10,
@@ -46,8 +46,8 @@ const styles = StyleSheet.create({
 
     },
     button4: {
-        width: Dimensions.get('window').width*0.4,
-        height: Dimensions.get('window').width*0.4,
+        width: Dimensions.get('window').width*0.45,
+        height: Dimensions.get('window').width*0.45,
         alignItems: "center",
         backgroundColor: "blue",
         padding: 10,

@@ -10,23 +10,12 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export default function SettingScreen({ route, navigation }) {
 //Now the user is brought from User authentication = only uid and email. Snapshot of the table users will give the info about other things. 
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/firebase.User
-            const uid = user.uid;
-            // ...
-        } else {
-            // User is signed out
-            // ...
-        }
-    });
 
+  
     const { user } = route.params;
     const currentNickname = user.nickname;
     const [nickname, setNickname] = useState('');
-    const saveNickname = () => {
+    function saveNickname  () {
         try {
             update(ref(database, "users/" + user.uid), {
                 nickname: nickname,
@@ -36,16 +25,13 @@ export default function SettingScreen({ route, navigation }) {
         }
 
     }
-
-
-
 //Add update email function? How about uploading avatar? 
 
 
     return (
         <View style={styles.loginPageContainer}>
             <View style={styles.loginInputContainer}>
-                <Text>Hello {user.email} set your nickname. Current nickname = {currentNickname}</Text>
+                <Text>Hello {user.email} set your nickname. Current nickname = {user.nickname}</Text>
                 <Input
                     placeholder='nickname'
                     value={nickname}

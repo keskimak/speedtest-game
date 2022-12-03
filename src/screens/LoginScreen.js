@@ -2,31 +2,39 @@ import { KeyboardAvoidingView, Text, View, Alert } from "react-native";
 import { Modal } from "react-native";
 import React, { useState } from "react";
 import { Button } from '@rneui/base';
-import {  Input } from "react-native-elements";
+import { Input } from "react-native-elements";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { styles } from "../styles/stylesheet";
-import { auth } from "../../firebase";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword  } from "firebase/auth";
-import { Dialog } from "react-native-elements";
-import SaveUser from "../utils/saveUser";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
+import registerUser from "../utils/registerUser";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { auth, database } from "../../firebase";
+import { useUser } from "../context/userContext";
+import { useEffect } from "react";
 
 
 
 
 export default function LoginScreen({ navigation }) {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    //not in use atm    const [username, setUsername] = useState('');
 
-   
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const handleLogin= () => {
+ 
+    const handleLogin = () => {
 
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in
                 const user = userCredential.user;
-                navigation.navigate('HomeScreen', { user: user });
+                
+                setIsLoggedIn(true);
+                navigation.navigate('HomeScreen', {user: user});
+            
 
                 // ...
             })
@@ -37,15 +45,15 @@ export default function LoginScreen({ navigation }) {
                 // ...
             });
     }
- 
+
     const handleSignUp = () => {
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                SaveUser(user);
-             
+                registerUser(user);
+
                 // ...
             })
             .catch((error) => {
@@ -77,8 +85,9 @@ export default function LoginScreen({ navigation }) {
 
             </View>
             <View style={styles.loginButtonContainer}>
-                <Button title="login" style={styles.button} onPress={handleLogin} />
-                <Button title="register" style={styles.button} onPress={handleSignUp} />
+
+                <Button title="login" onPress={handleLogin} />
+                <Button title="register" onPress={handleSignUp} />
 
 
             </View>
