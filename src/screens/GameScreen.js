@@ -14,7 +14,7 @@ import { useUser } from "../context/userContext";
 
 
 export default function GameScreen({ route, navigation }) {
-   //fix user and saving stats when the game itself is working
+    //fix user and saving stats when the game itself is working
     // const { user } = route.params;
 
     //Counter value tells the result at the end of the game. Best results are saved to the leaderboard.
@@ -22,14 +22,18 @@ export default function GameScreen({ route, navigation }) {
     const [counter, setCounter] = React.useState(0);
     const [generatedArray, setGeneratedArray] = useState([]);
     const [gameGoingOn, setGameGoingOn] = useState(false);
+    const [gameover, setGameover] = useState(false);
     const [highlight, setHighlight] = useState({ 'isOn': false, 'button': null });
-    let index = 0;
+   
     let array = [];
-    let interval = 1000;
+
+    
 
     useEffect(() => {
         setGeneratedArray(createArray(400));
-    }, [setGameGoingOn])
+           
+    }, [gameGoingOn])
+
 
 
     //This can be later modified so that the button is not visible while playing
@@ -37,50 +41,47 @@ export default function GameScreen({ route, navigation }) {
         //Make this into a Dialog (Elements dialog component) to save space on the screen and to guide the player to start the game instantly
         setGameGoingOn(true);
         console.log("game started");
-        console.log(generatedArray);
-        //Then start highlightArray to start the buttons to flash highLightArray(generatedArray)
-     //   handleArray(generatedArray);
-
+        let index=0;
+        setInterval(() => {
+            console.log('interval '+index);
+            setHighlight({
+                isOn: true,
+                button: generatedArray[index]
+            });
+            index++;
+            
+        }, 500);
+             
+       
     }
+
+   
 
     const endGame = () => {
         setCounter(0);
+        setGameover(true);
         setGameGoingOn(false);
+        clearInterval(myInterval);
+        //    clearInterval(highlighMyButton);
 
 
     }
 
-    const handleArray = (generatedArray) => {
-        
-        console.log(generatedArray);
+    function highlighMyButtons(index){
+        console.log('interval');
+        setHighlight({
+            isOn: true,
+            button: generatedArray[index]
+        });
+        index++;
 
-        if (index > 20) {
-            interval = 800;
-
-        } else {
-            interval = 500;
-
+        if(gameover) {
+            clearInterval(myInterval);
+            console.log("interval stopped")
         }
 
-        setInterval(() => {
+    }
 
-            if (gameGoingOn) {
-                setHighlight({
-                    isOn: true,
-                    button: array[index]
-                });
-                index++;
-            }
-            else (
-                clearInterval
-            )
-
-
-
-        }, interval);
-
-
-    };
     /*
      handeHighLight();
         function handeHighLight()  {
@@ -101,11 +102,11 @@ export default function GameScreen({ route, navigation }) {
                 };
     
             }
-            setInterval(highlighMyButtons, 1000);
+          
         }
     */
     const buttonPressed = (event, number) => {
-      
+
         let pushedNumber = number;
         if (pushedNumber === generatedArray[counter]) {
             console.log(`match: counter: ${counter} array: ${generatedArray[counter]} pushednumber: ${pushedNumber}`);
