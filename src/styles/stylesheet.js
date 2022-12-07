@@ -58,8 +58,8 @@ const styles = StyleSheet.create({
     //Highlighted buttons
 
     lightButton1: {
-        width: Dimensions.get('window').width*0.4,
-        height: Dimensions.get('window').width*0.4,
+        width: Dimensions.get('window').width*0.45,
+        height: Dimensions.get('window').width*0.45,
         alignItems: "center",
         backgroundColor: "black",
         padding: 10,
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
 
     },
     lightButton2: {
-        width: Dimensions.get('window').width*0.4,
-        height: Dimensions.get('window').width*0.4,
+        width: Dimensions.get('window').width*0.45,
+        height: Dimensions.get('window').width*0.45,
         alignItems: "center",
         backgroundColor: "black",
         padding: 10,
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
 
     },
     lightButton3: {
-        width: Dimensions.get('window').width*0.4,
-        height: Dimensions.get('window').width*0.4,
+        width: Dimensions.get('window').width*0.45,
+        height: Dimensions.get('window').width*0.45,
         alignItems: "center",
         backgroundColor: "black",
         padding: 10,
@@ -85,8 +85,8 @@ const styles = StyleSheet.create({
 
     },
     lightButton4: {
-        width: Dimensions.get('window').width*0.4,
-        height: Dimensions.get('window').width*0.4,
+        width: Dimensions.get('window').width*0.45,
+        height:Dimensions.get('window').width*0.45,
         alignItems: "center",
         backgroundColor: "black",
         padding: 10,
