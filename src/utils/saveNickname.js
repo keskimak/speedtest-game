@@ -10,7 +10,7 @@ export default function saveNickname(uid, nickname){
 
         update(ref(database, "users/" + uid), {
      
-            displayName: nickname,
+            nickname: nickname,
         
           });
         

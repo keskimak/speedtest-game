@@ -1,12 +1,12 @@
 import { View, Text } from "react-native";
 import { Button } from "react-native-elements";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import { useUser } from "../context/userContext";
 
 
 export default function HomeScreen({ route, navigation }) {
     const { user }= route.params;
-   
+    const id = useId(user.useId);
    
    
     return (

@@ -11,14 +11,13 @@ import { SafeAreaView } from "react-native";
 
 export default function LeaderboardScreen({ route, navigation }) {
 
-
-    const [results, setResults] = React.useState([]);
+    const [scores, setScores] = React.useState([]);
 
     useEffect(() => {
-        const itemsRef = ref(database, 'users/');
+        const itemsRef = ref(database, 'scores/');
         onValue(itemsRef, (snapshot) => {
             const data = snapshot.val();
-            setResults(Object.values(data));
+            setScores(Object.values(data));
         })
     }, []);
 
@@ -26,11 +25,13 @@ export default function LeaderboardScreen({ route, navigation }) {
 
     return (
         <SafeAreaView style={styles.loginPageContainer}>
+            <Text>Top scores</Text>
             {
-                results.map((item, i) => (
+                scores.map((item, i) => (
                     <ListItem key={i} bottomDivider>
-                        <ListItem.Title>{item.email}</ListItem.Title>
-                        <ListItem.Subtitle>{item.nickname}</ListItem.Subtitle>
+                        <ListItem.Title>Result</ListItem.Title>
+                        <ListItem.Subtitle>{item.result}</ListItem.Subtitle>
+                  
                     </ListItem>
                 ))
             }
