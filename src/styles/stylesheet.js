@@ -5,128 +5,55 @@ import { StyleSheet, Dimensions } from "react-native"
 
 const styles = StyleSheet.create({
 
-
-
-    //Game screen
-    gameButtonsContainer: {
-        flex: 0,
-        alignItems: 'center',
-        justifyContent: 'center',
-        alignContent: 'center',
-
-    },
-
-    //Buttons
-    button1: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "red",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-    button2: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: 'yellow',
-        padding: 10,
-        borderRadius: 100,
-
-    },
-    button3: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "green",
-        padding: 10,
-        borderRadius: 100,
-
-
-    },
-    button4: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "blue",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-
-    //Highlighted buttons
-
-    lightButton1: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "black",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-    lightButton2: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "black",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-    lightButton3: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "black",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-    lightButton4: {
-        width: Dimensions.get('window').width*0.45,
-        height:Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "black",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-
- 
-    //
-    highlightedButton: {
-        opacity: 5
-
-    },
+    //Login page
     loginPageContainer: {
-
+        backgroundColor: '#FFCA3A',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center'
     },
 
     loginInputContainer: {
-        marginTop:200,
+        backgroundColor: '#FFCA3A',
         flex: 0,
         alignContent: 'flex-end',
         justifyContent: 'flex-end',
-        width: 350
+        width: 350,
+   
     },
     loginButtonContainer: {
+        backgroundColor: '#FFCA3A',
         flex: 0,
         alignContent: 'center',
         justifyContent: 'center',
         width: 250
 
     },
+    loginButton: {
+        backgroundColor: '#FFCA3A',
+        borderRadius:1,
+        borderColor:'white',
+        
+    },
+    //Text styles
+    input : {
+        color: 'white',
+        fontSize: 20,
 
-    //Delete when highlights work
-    wrapperCustom: {
-        borderRadius: 8,
-        padding: 6
-      },
+    },
+    register: {
+        backgroundColor: '#FFCA3A',
+        color: 'white',
+        fontSize: 28, alignContent: 'center', justifyContent: 'center'
+
+    },
+
+    //logo
+    logo : {
+       alignSelf: 'center', 
+       justifyContent: 'flex-start'
+    }
+
 
 
 })

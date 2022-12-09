@@ -2,14 +2,13 @@ import { database } from "../../firebase";
 import { set, ref } from "firebase/database";
 
 
-export default function registerUser(user) {
-
-     
+export default function registerUser(user, nickname) {
+  
   
     set(ref(database, "users/" + user.uid), {
       email: user.email,
       bestresult: null,
-      nickname: ""
+      nickname: nickname
     });
 
   

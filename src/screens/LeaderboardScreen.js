@@ -30,7 +30,9 @@ export default function LeaderboardScreen({ route, navigation }) {
                 scores.map((item, i) => (
                     <ListItem key={i} bottomDivider>
                         <ListItem.Title>Result</ListItem.Title>
+                        <ListItem.Subtitle>{item.nickname}</ListItem.Subtitle>
                         <ListItem.Subtitle>{item.result}</ListItem.Subtitle>
+             
                   
                     </ListItem>
                 ))

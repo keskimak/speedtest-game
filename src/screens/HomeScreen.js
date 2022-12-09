@@ -2,20 +2,39 @@ import { View, Text } from "react-native";
 import { Button } from "react-native-elements";
 import React, { useId, useState } from "react";
 import { useUser } from "../context/userContext";
+import { styles } from "../styles/stylesheet";
+import { useEffect } from "react";
+import { onValue, ref } from "firebase/database";
+import { database } from "../../firebase";
 
 
 export default function HomeScreen({ route, navigation }) {
-    const { user }= route.params;
-    const id = useId(user.useId);
-   
-   
+    const { user } = route.params;
+    const uid = user.uid;
+    const [currentUser, setCurrentUser] = useState('');
+// setCurrentUser({ "uid" : uid, "nickname": currentUser[1]});
+    useEffect(() => {
+
+        const userRef = ref(database, 'users/' + uid);
+        onValue(userRef, (snapshot) => {
+            const data = snapshot.val();
+            setCurrentUser(data);  
+            console.log(currentUser)     
+
+        })
+
+    }, []);
     return (
-     <View
-            style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Text> Welcome, {user.email}</Text>
-            <Button title="PLAY" onPress={() => navigation.navigate('GameScreen', { user: user })} />
-            <Button title="Leaderboard" onPress={() => navigation.navigate('Leaderboard', { user: user })} />
-            <Button title="SETTINGS" onPress={() => navigation.navigate('Settings', { user: user })} />
-        </View> 
+        <View
+            style={styles.loginPageContainer}>
+            <Text> Welcome, {currentUser.nickname}</Text>
+            <Button
+                buttonStyle={styles.loginButton}
+                containerStyle={styles.loginButton}
+               
+                title="PLAY" onPress={() => navigation.navigate('GameScreen', { currentUser: currentUser })} />
+            <Button style={styles.loginButton} title="LEADERBOARD" onPress={() => navigation.navigate('Leaderboard', { currentUser: currentUser })} />
+
+        </View>
     );
 };

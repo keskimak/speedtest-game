@@ -3,7 +3,7 @@ import { database } from "../../firebase";
 import React, { useState, useEffect } from "react";
 
 
-export default function saveResult(user, result) {
+export default function saveResult(currentUser, result) {
 
   const [previousResults, setPreviousResults] = useState([]);
 
@@ -19,8 +19,8 @@ export default function saveResult(user, result) {
 */
   // A post entry.
   const postData = {
-    uid: user.uid,
-    result: result
+    "player": currentUser.nickname,
+    "result": result
   };
   //Modify this so that only the personal best is saved!!!!!!
 
@@ -28,9 +28,8 @@ export default function saveResult(user, result) {
   // Get a key for a new Post.
   const newPostKey = push(child(ref(database), 'scores')).key;
 
-  set(ref(database, "scores/" + user.uid + "/" + newPostKey), {
+  set(ref(database, "scores/" + currentUser.nickname + "/" + newPostKey), {
     result: result,
-   
 
   });
 

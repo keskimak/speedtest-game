@@ -1,104 +1,116 @@
-import { KeyboardAvoidingView, Text, View, Alert } from "react-native";
-import { Modal } from "react-native";
+import { KeyboardAvoidingView, Text, View, Alert, Image } from "react-native";
 import React, { useState } from "react";
-import { Button } from '@rneui/base';
+import { Button, CheckBox, Icon } from '@rneui/base';
 import { Input } from "react-native-elements";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { styles } from "../styles/stylesheet";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
 } from "firebase/auth";
-import registerUser from "../utils/registerUser";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth, database } from "../../firebase";
-import { useUser } from "../context/userContext";
-import { useEffect } from "react";
-
-
+import registerUser from "../utils/registerUser";
 
 
 export default function LoginScreen({ navigation }) {
-
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [nickname, setNickname] = useState("");
+    const [registering, setRegistering] = useState(false);
 
- 
     const handleLogin = () => {
-
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in
                 const user = userCredential.user;
-                
-                setIsLoggedIn(true);
-                navigation.navigate('HomeScreen', {user: user});
-            
-
-                // ...
+                navigation.navigate('HomeScreen', { user: user });
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                Alert.alert(errorCode, errorMessage)
-                // ...
+                Alert.alert(error.code, error.message)
             });
     }
-
     const handleSignUp = () => {
-
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in 
                 const user = userCredential.user;
-                registerUser(user);
-
-                // ...
+                registerUser(user,nickname)
+              
+                navigation.navigate('HomeScreen', { user: user });
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                Alert.alert(errorCode, errorMessage)
-                // ..
+                Alert.alert(error.code, error.message)
             });
         setEmail('');
         setPassword('');
+        setNickname('');
     }
-
-
     return (
-        <View style={styles.loginPageContainer}>
+        <KeyboardAvoidingView style={styles.loginPageContainer}>
+            <Image source={require('../components/raketti.png')} style={styles.logo} />
             <View style={styles.loginInputContainer}>
                 <Input
+                inputStyle={styles.input}
+                placeholderTextColor="white"
+                inputContainerStyle={{borderBottomColor:"white"}}
+                autoComplete="email"                  
                     placeholder='Email'
                     value={email}
                     onChangeText={email => setEmail(email.trim())}
                 />
                 <Input
+                    style={styles.input}
+                    placeholderTextColor="white"
                     placeholder='Password'
+                    inputContainerStyle={{borderBottomColor:"white"}}
                     value={password}
                     onChangeText={password => setPassword(password.trim())}
                     secureTextEntry
                 />
-
+                {registering ?
+                    <Input
+                        style={styles.input}
+                        placeholder='Nickname'
+                        placeholderTextColor="white"
+                        inputContainerStyle={{borderBottomColor:"white"}}
+                        value={nickname}
+                        onChangeText={nickname => setNickname(nickname.trim())}
+                    /> : <></>}
 
             </View>
             <View style={styles.loginButtonContainer}>
-
-                <Button title="login" onPress={handleLogin} />
-                <Button title="register" onPress={handleSignUp} />
-
-
+                {!registering ? <Button
+                    buttonStyle={styles.loginButton}
+                    containerStyle={styles.loginButton}
+                    icon={
+                        <Icon
+                            name="login"
+                            type="material"
+                            size={50}
+                            color="white"
+                        />
+                    }
+                    iconRight
+                 onPress={handleLogin} /> 
+                 : <Button buttonStyle={styles.loginButton}      icon={
+                    <Icon
+                        name="login"
+                        type="material"
+                        size={50}
+                        color="white"
+                    />
+                } onPress={handleSignUp} />}
+                <CheckBox
+                    containerStyle={styles.register}
+                    textStyle={styles.register}
+                    center
+                    
+                    checkedColor="white"
+                    uncheckedColor="white"
+                    title="register"
+                    checked={registering}
+                    onPress={registering ? registering => setRegistering(!registering) 
+                    : registering => setRegistering(registering)}
+                />
             </View>
-            <Button
-                title="Just play the game"
-                onPress={() => {
-                    // Navigate using the `navigation` prop that you received
-                    navigation.navigate('GameScreen');
-                }}
-            />
-        </View>
+        </KeyboardAvoidingView>
 
     );
 }
