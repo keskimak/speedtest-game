@@ -14,6 +14,7 @@ import { useUser } from "../context/userContext";
 import { useResults } from "../context/resultContext";
 import useId from "../hooks/useId";
 import { gameStyles } from "../styles/gamestyles";
+import GameComponent from "../components/GameComponent";
 
 
 export default function GameScreen({ route, navigation }) {
@@ -100,7 +101,17 @@ export default function GameScreen({ route, navigation }) {
             </View>
             {!gameover ?
                 <View style={gameStyles.gameButtonsContainer}>
-                    {highlight.isOn && highlight.button === 1 && gameGoingOn ? <TouchableOpacity activeOpacity={1.0} style={gameStyles.lightButton1} onPress={event => buttonPressed(event, 1)}><Text>3</Text></TouchableOpacity> :
+   <GameComponent />
+                </View> : <></>}
+            <View>
+
+            </View>
+        </SafeAreaView>
+    );
+};
+
+/*
+                 {highlight.isOn && highlight.button === 1 && gameGoingOn ? <TouchableOpacity activeOpacity={1.0} style={gameStyles.lightButton1} onPress={event => buttonPressed(event, 1)}><Text>3</Text></TouchableOpacity> :
                         <TouchableOpacity activeOpacity={1.0} style={gameStyles.button1} onPress={event => buttonPressed(event, 1)}></TouchableOpacity>}
 
                     {highlight.isOn && highlight.button === 2 && gameGoingOn ? <TouchableOpacity activeOpacity={1.0} style={gameStyles.lightButton2} onPress={event => buttonPressed(event, 2)}><Text>3</Text></TouchableOpacity> :
@@ -113,11 +124,5 @@ export default function GameScreen({ route, navigation }) {
                     {highlight.isOn && highlight.button === 4 && gameGoingOn ? <TouchableOpacity activeOpacity={1.0} style={gameStyles.lightButton4} onPress={event => buttonPressed(event, 4)}><Text>4</Text></TouchableOpacity> :
                         <TouchableOpacity activeOpacity={1.0} style={gameStyles.button4} onPress={event => buttonPressed(event, 4)}></TouchableOpacity>}
 
-                </View> : <></>}
-            <View>
 
-            </View>
-        </SafeAreaView>
-    );
-};
-
+*/

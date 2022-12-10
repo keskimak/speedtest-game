@@ -14,11 +14,11 @@ const styles = StyleSheet.create({
     },
 
     loginInputContainer: {
-        backgroundColor: '#FFCA3A',
+        backgroundColor: 'FFCA3A',
         flex: 0,
         alignContent: 'flex-end',
         justifyContent: 'flex-end',
-        width: 350,
+        width: Dimensions.get('window').width*0.6,
    
     },
     loginButtonContainer: {
@@ -26,13 +26,15 @@ const styles = StyleSheet.create({
         flex: 0,
         alignContent: 'center',
         justifyContent: 'center',
-        width: 250
+        width: Dimensions.get('window').width*0.5,
 
     },
     loginButton: {
         backgroundColor: '#FFCA3A',
         borderRadius:1,
         borderColor:'white',
+        width: Dimensions.get('window').width*0.6,
+        marginBottom:10
         
     },
     //Text styles
@@ -44,7 +46,9 @@ const styles = StyleSheet.create({
     register: {
         backgroundColor: '#FFCA3A',
         color: 'white',
-        fontSize: 28, alignContent: 'center', justifyContent: 'center'
+        fontSize: 28, 
+        alignContent: 'center', 
+        justifyContent: 'center'
 
     },
 
@@ -52,9 +56,27 @@ const styles = StyleSheet.create({
     logo : {
        alignSelf: 'center', 
        justifyContent: 'flex-start'
+    },
+    //stars
+    starlogo: {
+
+        width: Dimensions.get('window').width * 0.6,
+        height: Dimensions.get('window').width * 0.6,
+
+
+    },
+
+    scoretable: {
+
+        container: { flex: 0, backgroundColor: '#FFCA3A' },
+        wrapper: { flexDirection: 'row' },
+        title: { flex: 1, backgroundColor: '#FFCA3A' },
+        row: {  height: 35  },
+        text: { textAlign: 'center', color:'white', fontSize:25 }
+      
+
     }
-
-
+      
 
 })
 

@@ -5,10 +5,13 @@ import { Input } from "react-native-elements";
 import { styles } from "../styles/stylesheet";
 import {
     createUserWithEmailAndPassword,
+    getAuth,
+    onAuthStateChanged,
     signInWithEmailAndPassword,
 } from "firebase/auth";
-import { auth, database } from "../../firebase";
+import { app, auth, database } from "../../firebase";
 import registerUser from "../utils/registerUser";
+import { useEffect } from "react";
 
 
 export default function LoginScreen({ navigation }) {
@@ -17,22 +20,42 @@ export default function LoginScreen({ navigation }) {
     const [nickname, setNickname] = useState("");
     const [registering, setRegistering] = useState(false);
 
+
+    useEffect(() => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                
+                // https://firebase.google.com/docs/reference/js/firebase.User
+                const uid = user.uid;
+                // ...
+            } else {
+                // User is signed out
+                // ...
+            }
+        });
+
+    }, []);
+
+
     const handleLogin = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
                 navigation.navigate('HomeScreen', { user: user });
+                setEmail('');
+                setPassword('');
+                setNickname('');
             })
             .catch((error) => {
-                Alert.alert(error.code, error.message)
+                Alert.alert("Error occured when logging in")
             });
     }
     const handleSignUp = () => {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                registerUser(user,nickname)
-              
+                registerUser(user, nickname)
+
                 navigation.navigate('HomeScreen', { user: user });
             })
             .catch((error) => {
@@ -47,10 +70,10 @@ export default function LoginScreen({ navigation }) {
             <Image source={require('../components/raketti.png')} style={styles.logo} />
             <View style={styles.loginInputContainer}>
                 <Input
-                inputStyle={styles.input}
-                placeholderTextColor="white"
-                inputContainerStyle={{borderBottomColor:"white"}}
-                autoComplete="email"                  
+                    inputStyle={styles.input}
+                    placeholderTextColor="white"
+                    inputContainerStyle={{ borderBottomColor: "white" }}
+                    autoComplete="email"
                     placeholder='Email'
                     value={email}
                     onChangeText={email => setEmail(email.trim())}
@@ -59,7 +82,7 @@ export default function LoginScreen({ navigation }) {
                     style={styles.input}
                     placeholderTextColor="white"
                     placeholder='Password'
-                    inputContainerStyle={{borderBottomColor:"white"}}
+                    inputContainerStyle={{ borderBottomColor: "white" }}
                     value={password}
                     onChangeText={password => setPassword(password.trim())}
                     secureTextEntry
@@ -69,7 +92,7 @@ export default function LoginScreen({ navigation }) {
                         style={styles.input}
                         placeholder='Nickname'
                         placeholderTextColor="white"
-                        inputContainerStyle={{borderBottomColor:"white"}}
+                        inputContainerStyle={{ borderBottomColor: "white" }}
                         value={nickname}
                         onChangeText={nickname => setNickname(nickname.trim())}
                     /> : <></>}
@@ -88,26 +111,26 @@ export default function LoginScreen({ navigation }) {
                         />
                     }
                     iconRight
-                 onPress={handleLogin} /> 
-                 : <Button buttonStyle={styles.loginButton}      icon={
-                    <Icon
-                        name="login"
-                        type="material"
-                        size={50}
-                        color="white"
-                    />
-                } onPress={handleSignUp} />}
+                    onPress={handleLogin} />
+                    : <Button buttonStyle={styles.loginButton} icon={
+                        <Icon
+                            name="login"
+                            type="material"
+                            size={50}
+                            color="white"
+                        />
+                    } onPress={handleSignUp} />}
                 <CheckBox
                     containerStyle={styles.register}
                     textStyle={styles.register}
                     center
-                    
+
                     checkedColor="white"
                     uncheckedColor="white"
                     title="register"
                     checked={registering}
-                    onPress={registering ? registering => setRegistering(!registering) 
-                    : registering => setRegistering(registering)}
+                    onPress={registering ? registering => setRegistering(!registering)
+                        : registering => setRegistering(registering)}
                 />
             </View>
         </KeyboardAvoidingView>
