@@ -1,65 +1,95 @@
-import { View, Text } from "react-native";
-import { Button } from "react-native-elements";
+import { View, Text, KeyboardAvoidingView, Dimensions } from "react-native";
 import React, { useId, useState } from "react";
-import { useUser } from "../context/userContext";
 import { styles } from "../styles/stylesheet";
 import { useEffect } from "react";
 import { onValue, ref } from "firebase/database";
 import { auth, database } from "../../firebase";
 import { Alert } from "react-native";
 import { onAuthStateChanged, signOut } from "firebase/auth";
+import Button from "react-native-flat-button";
+import { Avatar, Image } from "react-native-elements";
 
 
-export default function HomeScreen({ route, navigation }) {
-    const { user } = route.params;
-    const uid = user.uid;
+
+export default function HomeScreen({ navigation }) {
+    const uid = auth.currentUser.uid;
     const [currentUser, setCurrentUser] = useState('');
     // setCurrentUser({ "uid" : uid, "nickname": currentUser[1]});
     useEffect(() => {
-
         const userRef = ref(database, 'users/' + uid);
         onValue(userRef, (snapshot) => {
             const data = snapshot.val();
             setCurrentUser(data);
             console.log(currentUser)
-
         })
 
     }, []);
-    function logOut() {
 
+    function logOut() {
         signOut(auth).then(() => {
             onAuthStateChanged(auth, (user) => {
-                if (user) {
-                   
-                    // https://firebase.google.com/docs/reference/js/firebase.User
-                    
-                } else {
-                    navigation.navigate('LoginScreen')
-                    // ...
-                }
+
+                navigation.navigate('LoginScreen')
+
             });
-            // Sign-out successful.
         }).catch((error) => {
             Alert.alert("Error signing out!")
         });
 
     }
     return (
-        <View
-            style={styles.loginPageContainer}>
-            <Text> Welcome, {currentUser.nickname}</Text>
-            <Button
-                buttonStyle={styles.loginButton}
-                containerStyle={styles.loginButton}
-                title="PLAY" onPress={() => navigation.navigate('GameScreen', { currentUser: currentUser })} />
-            <Button style={styles.loginButton}
-                containerStyle={styles.loginButton}
-                title="LEADERBOARD" onPress={() => navigation.navigate('Leaderboard', { currentUser: currentUser })} />
-            <Button style={styles.loginButton}
-                containerStyle={styles.loginButton}
-                title="LOG OUT" onPress={logOut} />
+        <KeyboardAvoidingView style={styles.homeContainer}>
 
-        </View>
+            <View style={styles.buttonMain}>
+                <View style={styles.header}>              
+                  
+                    <Image source={require('../components/raketti.png')} style={styles.shuttle} />
+                    <Text style={styles.basicFont}>WELCOME, {currentUser.nickname}!</Text>
+                    <Button
+                        type="custom"
+                        backgroundColor={"#1abc9c"}
+                        borderColor={"#8e44ad"}
+                        borderRadius={6}
+                        shadowHeight={8}
+                        activeOpacity={0.5}
+                        containerStyle={styles.buttonContainer}
+                        contentStyle={{ fontSize: 22, fontWeight: '900' }}
+                        onPress={() =>
+                            navigation.navigate('GameScreen')}
+                    >
+                        PLAY
+                    </Button>
+                    <Button
+                        type="custom"
+                        backgroundColor={"#1abc9c"}
+                        borderColor={"#8e44ad"}
+                        borderRadius={6}
+                        shadowHeight={8}
+                        activeOpacity={0.5}
+                        containerStyle={styles.buttonContainer}
+                        contentStyle={{ fontSize: 22, fontWeight: '900' }}
+                        onPress={() =>
+                            navigation.navigate('Leaderboard')}
+                    >
+                        LEADERBOARD
+                    </Button>
+                    <Button
+                        type="custom"
+                        backgroundColor={"#1abc9c"}
+                        borderColor={"#8e44ad"}
+                        borderRadius={6}
+                        shadowHeight={8}
+                        activeOpacity={0.5}
+                        containerStyle={styles.buttonContainer}
+                        contentStyle={{ fontSize: 22, fontWeight: '900' }}
+                        onPress={logOut}
+                    >
+                        LOGOUT
+                    </Button>
+                </View>
+
+            </View>
+        </KeyboardAvoidingView>
     );
 };
+// <Avatar rounded icon={{ name: 'home', color: "#1abc9c" }} s size="xlarge" />

@@ -30,9 +30,8 @@ export default function LeaderboardScreen({ route, navigation }) {
     //Show also users top scores? 
 
     return (
-        <KeyboardAvoidingView style={styles.loginPageContainer}>
+        <KeyboardAvoidingView style={{flex:1}}>
     
-
             <TableComponent />
 
         </KeyboardAvoidingView>

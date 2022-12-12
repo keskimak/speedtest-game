@@ -7,19 +7,27 @@ import LeaderboardScreen from './src/screens/LeaderboardScreen';
 import { createStackNavigator } from '@react-navigation/stack';
 export default function App() {
 
-  //At some point define backNavigation (see props)
   const Stack = createStackNavigator();
- 
+
   return (
 
-<NavigationContainer>
-<Stack.Navigator>
-      <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false}} />
-      <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false}} />
-      <Stack.Screen name="GameScreen" component={GameScreen} options={{ headerShown: false}} />
-      <Stack.Screen name="Leaderboard" component={LeaderboardScreen} />
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="HomeScreen" component={HomeScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="GameScreen" component={GameScreen} options={{ headerShown: false }} />
+        <Stack.Screen
+          name="Leaderboard"
+          component={LeaderboardScreen}
+          options={{
+            title: "",
+            headerStyle: {
+              backgroundColor: '#FFCA3A',
+            },
+
+          }} />
       </Stack.Navigator>
-  </NavigationContainer>
+    </NavigationContainer>
 
   );
 }

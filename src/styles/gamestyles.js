@@ -6,6 +6,7 @@ const gameStyles = StyleSheet.create({
     
     //Game screen
     gameButtonsContainer: {
+        backgroundColor: '#FFCA3A',
         flex: 0,
         alignItems: 'center',
         justifyContent: 'center',
@@ -14,82 +15,26 @@ const gameStyles = StyleSheet.create({
     },
 
     //Buttons
-    button1: {
+
+    gameButton: {
         width: Dimensions.get('window').width*0.45,
         height: Dimensions.get('window').width*0.45,
         alignItems: "center",
-        backgroundColor: "red",
+        backgroundColor: '#8e44ad',
         padding: 10,
         borderRadius: 100,
 
     },
-    button2: {
+    highlightedButton: {
         width: Dimensions.get('window').width*0.45,
         height: Dimensions.get('window').width*0.45,
         alignItems: "center",
-        backgroundColor: 'yellow',
+        backgroundColor: "#1abc9c",
         padding: 10,
         borderRadius: 100,
 
     },
-    button3: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "green",
-        padding: 10,
-        borderRadius: 100,
-
-
-    },
-    button4: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "blue",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-
-    //Highlighted buttons
-
-    lightButton1: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "black",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-    lightButton2: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "black",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-    lightButton3: {
-        width: Dimensions.get('window').width*0.45,
-        height: Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "black",
-        padding: 10,
-        borderRadius: 100,
-
-    },
-    lightButton4: {
-        width: Dimensions.get('window').width*0.45,
-        height:Dimensions.get('window').width*0.45,
-        alignItems: "center",
-        backgroundColor: "black",
-        padding: 10,
-        borderRadius: 100,
-
-    }
+    
 
 
 })
